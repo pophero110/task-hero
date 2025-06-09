@@ -12,17 +12,25 @@ pnpm dev
 bun dev
 ```
 
-## Roadmap
+## Prototype
 
 -[x] Add markdown text editor for task note
 -[x] Add task steps timeline
 -[x] Add task by name
 -[x] Add two panels: task list panel and task view panel
+-[] Add global searching
+-[] Add undo
 -[] Add daskboard to show metric for self-reflection
 -[] Export task for knowledge sharing
 -[] Add task estimation 
--[] Add remote storage
+-[] Add offline storage
 
+## Roadmap
+
+-[] Choose a appropriate UI Style that give good first impression
+-[] Add remote storage 
+-[] Annotation layer to explain task in details
+-[] Sharable Task
 
 ## Tech Stack
 
@@ -33,6 +41,35 @@ bun dev
 - [Tailwind](https://tailwindcss.com/docs/installation/using-vite)
 - [Biome](https://biomejs.dev/guides/getting-started/): Linter and Formatter
 - [TypeScript Language Server](https://github.com/typescript-language-server/typescript-language-server)
+
+## Ideas
+
+- Centralize state management to decouple it from the UI
+- Define a repository interface for task CRUD operations
+- Define an exporter interface for flexible export formats, e.g, cards,
+step-by-step guides
+- Apply Pyramid Principles to UI Design
+- Use Spaced repetition algorithm to collect feedback
+    - prompt user to review past tasks or app features
+- Add a feedback loop system
+
+Collect feedback
+Gather user opinions, behavior data, bug reports, usage metrics, surveys, or interviews.
+
+Analyze feedback
+Identify patterns, pain points, feature requests, and prioritize based on impact.
+
+Act on feedback
+Implement changes: fix bugs, add features, improve UX/UI.
+
+Release updates
+Deliver the improved product version to users.
+
+Measure impact
+Monitor how changes affect user satisfaction, engagement, or retention.
+
+Repeat
+Continuously cycle through these steps for ongoing product improvement.
 
 ## Component-Based Architecture
 
