@@ -12,6 +12,17 @@ pnpm dev
 bun dev
 ```
 
+## Roadmap
+
+-[x] Add markdown text editor for task note
+-[x] Add task steps timeline
+-[x] Add task by name
+-[x] Add two panels: task list panel and task view panel
+-[] Add daskboard to show metric for self-reflection
+-[] Export task for knowledge sharing
+-[] Add task estimation 
+-[] Add remote storage
+
 ## Component-Based Architecture
 
 ### Key Principles of Component-Based Architecture (CBA):
