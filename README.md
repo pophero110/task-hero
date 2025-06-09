@@ -38,6 +38,7 @@ Encapsulation – Components hide internal state/logic and expose a simple inter
 
 ### npm audit report
 
+```
 dompurify  <3.2.4
 Severity: moderate
 DOMPurify allows Cross-site Scripting (XSS) - https://github.com/advisories/GHSA-vhxf-7vqr-mrjg
@@ -55,3 +56,5 @@ node_modules/@toast-ui/editor/node_modules/dompurify
 
 To address all issues (including breaking changes), run:
   npm audit fix --force
+```
+fixed at 06-08-2025
