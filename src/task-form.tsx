@@ -12,6 +12,7 @@ export function TaskForm({ addTask }: TaskFormProps) {
   function handleEnter(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     addTask({ name });
+    setName("");
   }
 
   return (
@@ -21,7 +22,8 @@ export function TaskForm({ addTask }: TaskFormProps) {
           className="w-full"
           id="task"
           type="text"
-          placeholder="Task Name"
+          autoComplete="off"
+          placeholder="Enter task name"
           required
           onChange={(e) => setName(e.target.value)}
           value={name}
