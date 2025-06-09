@@ -23,6 +23,17 @@ bun dev
 -[] Add task estimation 
 -[] Add remote storage
 
+
+## Tech Stack
+
+- [Milkdown](https://milkdown.dev/docs/recipes/react): Markdown editor
+- [shadcn/ui](https://ui.shadcn.com/docs): build-your-component library
+- [Next.js](https://nextjs.org/docs)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind](https://tailwindcss.com/docs/installation/using-vite)
+- [Biome](https://biomejs.dev/guides/getting-started/): Linter and Formatter
+- [TypeScript Language Server](https://github.com/typescript-language-server/typescript-language-server)
+
 ## Component-Based Architecture
 
 ### Key Principles of Component-Based Architecture (CBA):
