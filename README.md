@@ -24,6 +24,7 @@ bun dev
 -[] Export task for knowledge sharing
 -[] Add task estimation 
 -[] Add offline storage
+-[] Add Text to Task diagramming language
 
 ## Roadmap
 
@@ -41,6 +42,8 @@ bun dev
 - [Tailwind](https://tailwindcss.com/docs/installation/using-vite)
 - [Biome](https://biomejs.dev/guides/getting-started/): Linter and Formatter
 - [TypeScript Language Server](https://github.com/typescript-language-server/typescript-language-server)
+-[] Add Authentication and Authorization (Review OAuth 2.0, OIDC, and JWT. Also explore other ways
+of Authenticaiton and Authorization)
 
 ## Ideas
 

@@ -4,34 +4,42 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { TaskForm } from "@/task-form";
-import TaskTable from "@/task-table";
-import TaskView from "@/task-view";
-import { useState } from "react";
-
-export type Task = {
-  id: string;
-  name: string;
-  completed: boolean;
-  note: string;
-};
+import {
+  LocalStorageService,
+  Result,
+  StorageService,
+  Task,
+  TaskService,
+} from "@/store/localStorageService";
+import { TaskForm } from "@/TaskForm";
+import TaskTable from "@/TaskTable";
+import TaskEditor from "@/TaskEditor";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [selectedTask, setSelectedTask] = useState<Task | null>({
-    name: "test",
-  });
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const localStorageService: StorageService<Task> = new LocalStorageService();
+  const taskService: TaskService = new TaskService(localStorageService);
 
-  const addTask = (task: Task): void => {
-    task.id = `${Math.random() * 100000}`;
-    setTasks([...tasks, task]);
+  const handleAddTask = (task: Task): Result<Task> => {
+    const result = taskService.addTask(task);
+    if (result.success) {
+      setTasks([...tasks, result.value]);
+    }
+    return result;
   };
+
+  useEffect(() => {
+    const result = taskService.getAll();
+    if (result.success) setTasks(result.value);
+  }, []);
 
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel minSize={25} className="p-4 h-screen">
         <div className="flex flex-col min-w-min">
-          <TaskForm addTask={addTask} />
+          <TaskForm handleAddTask={handleAddTask} />
           <TaskTable
             tasks={tasks}
             onSelectRow={(task) => {
@@ -43,7 +51,7 @@ export default function Home() {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel className="p-4 h-screen">
-        {selectedTask && <TaskView task={selectedTask} />}
+        {selectedTask && <TaskEditor task={selectedTask} />}
       </ResizablePanel>
     </ResizablePanelGroup>
   );
