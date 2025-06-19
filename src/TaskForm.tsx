@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { FormEvent, useState } from "react";
-import type { Task } from "./app/page";
+import { Task } from "./store/localStorageService";
 
 type TaskFormProps = {
   handleAddTask: (task: Task) => void;

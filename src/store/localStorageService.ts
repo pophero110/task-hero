@@ -1,8 +1,14 @@
+export type Step = {
+  description: string;
+  created: string; // ISO 8601 format
+};
+
 export type Task = {
-  id: string;
+  id?: string;
   name: string;
-  completed: boolean;
-  note: string;
+  completed?: boolean;
+  note?: string;
+  steps?: Step[];
 };
 
 export type Result<T, E = Error> =

@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import type { Task } from "./app/page";
 import { Checkbox } from "./components/ui/checkbox";
 import { useState } from "react";
+import { Task } from "./store/localStorageService";
 
 type TaskTableProps = {
   tasks: Task[];
@@ -32,7 +32,7 @@ function TaskRow({ task, onSelect }: TaskRowProps) {
       <TableCell>
         <Checkbox
           checked={checked}
-          onCheckedChange={setChecked}
+          onCheckedChange={(checkState) => setChecked(checkState as boolean)}
           onClick={(e) => e.stopPropagation()}
         />
       </TableCell>

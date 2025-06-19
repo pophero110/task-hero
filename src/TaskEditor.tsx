@@ -6,7 +6,7 @@ import "@milkdown/crepe/theme/common/style.css";
 import "./custom-milkdown.css";
 import Timeline from "./timeline";
 import { Input } from "./components/ui/input";
-import { Task } from "./store/store-service";
+import { Step, Task } from "./store/localStorageService";
 type TaskEditorProps = {
   task: Task;
 };
@@ -18,10 +18,10 @@ export default function TaskEditor({ task }: TaskEditorProps) {
     setName(task.name);
   }, [task]);
 
-  const [steps, setSteps] = useState([
-    { time: new Date().toLocaleTimeString(), content: "First step" },
-    { time: new Date().toLocaleTimeString(), content: "Second step" },
-    { time: new Date().toLocaleTimeString(), content: "Third step" },
+  const [steps, setSteps] = useState<Step[]>([
+    { created: new Date().toLocaleTimeString(), description: "First step" },
+    { created: new Date().toLocaleTimeString(), description: "Second step" },
+    { created: new Date().toLocaleTimeString(), description: "Third step" },
   ]);
 
   const [step, setStep] = useState("");
@@ -31,7 +31,7 @@ export default function TaskEditor({ task }: TaskEditorProps) {
     if (step.trim()) {
       setSteps([
         ...steps,
-        { time: new Date().toLocaleTimeString(), content: step },
+        { created: new Date().toLocaleTimeString(), description: step },
       ]);
       setStep("");
     }
