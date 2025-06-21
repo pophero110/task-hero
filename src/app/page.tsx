@@ -8,6 +8,7 @@ import {
   LocalStorageService,
   Result,
   StorageService,
+  success,
   Task,
   TaskService,
 } from "@/store/localStorageService";
@@ -27,6 +28,11 @@ export default function Home() {
     if (result.success) {
       setTasks([...tasks, result.value]);
     }
+    return result;
+  };
+
+  const handleUpdateTask = (task: Task): Result<Task> => {
+    const result = taskService.updateTask(task);
     return result;
   };
 
@@ -51,7 +57,9 @@ export default function Home() {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel className="p-4 h-screen">
-        {selectedTask && <TaskEditor task={selectedTask} />}
+        {selectedTask && (
+          <TaskEditor handleUpdateTask={handleUpdateTask} task={selectedTask} />
+        )}
       </ResizablePanel>
     </ResizablePanelGroup>
   );

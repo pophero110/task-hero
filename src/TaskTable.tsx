@@ -28,7 +28,11 @@ type TaskRowProps = {
 function TaskRow({ task, onSelect }: TaskRowProps) {
   const [checked, setChecked] = useState<boolean>(false);
   return (
-    <TableRow onClick={() => onSelect(task)} key={task.name}>
+    <TableRow
+      className="flex gap-2"
+      onClick={() => onSelect(task)}
+      key={task.name}
+    >
       <TableCell>
         <Checkbox
           checked={checked}
@@ -36,7 +40,6 @@ function TaskRow({ task, onSelect }: TaskRowProps) {
           onClick={(e) => e.stopPropagation()}
         />
       </TableCell>
-      <TableCell className="font-medium">{task.id}</TableCell>
       <TableCell className="font-medium">{task.name}</TableCell>
     </TableRow>
   );

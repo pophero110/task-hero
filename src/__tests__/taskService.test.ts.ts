@@ -16,21 +16,47 @@ import {
 
 const localStorageService = new LocalStorageService();
 const taskService = new TaskService(localStorageService);
-
 test("get item", () => {
   const task: Task = {
-    id: "123123",
     name: "test",
     completed: false,
     note: "nothing here",
+    steps: [],
   };
 
   // Mock get to return success with task
   // mockStorageService.get.mockReturnValueOnce({ success: true, value: task });
 
-  localStorageService.set(task.id, task);
-  const result: Result<Task> = taskService.getTaskById(task.id);
+  const newTask = taskService.addTask(task).value;
+  const result: Result<Task> = taskService.getTaskById(newTask.id);
 
   // expect(mockStorageService.get).toHaveBeenCalledWith(task.id);
-  expect(result).toEqual(success(task));
+  expect(result).toEqual(success(newTask));
+});
+
+test("update task", () => {
+  const task: Task = {
+    name: "test1",
+    completed: false,
+    note: "nothing 2",
+    steps: [],
+  };
+
+  const savedTask = taskService.addTask(task).value;
+  const updatedTask = {
+    ...savedTask,
+    name: "test2",
+    completed: true,
+    note: "123",
+    steps: [
+      ...savedTask.steps,
+      {
+        description: "123",
+        created: new Date().toISOString(),
+      },
+    ],
+  };
+  const result: Result<Task> = taskService.updateTask(updatedTask);
+
+  expect(result).toEqual(success(updatedTask));
 });

@@ -7,8 +7,8 @@ export type Task = {
   id?: string;
   name: string;
   completed?: boolean;
-  note?: string;
-  steps?: Step[];
+  note: string;
+  steps: Step[];
 };
 
 export type Result<T, E = Error> =
@@ -48,6 +48,7 @@ export class LocalStorageService implements StorageService<Task> {
 
   set(key: string, value: Task): Result<void> {
     try {
+      console.log("Updating task in json: ", JSON.stringify(value));
       localStorage.setItem(key, JSON.stringify(value));
       return success(undefined);
     } catch (error) {
@@ -107,6 +108,20 @@ export class TaskService {
     }
     console.error("Storage Error: ", result.error);
     return failure(new Error("Something went wrong when adding task"));
+  }
+
+  updateTask(task: Task): Result<Task> {
+    if (task.id === undefined)
+      return failure(new Error("Task ID can not be undefined."));
+    const result = this.getTaskById(task.id);
+    if (result.success) {
+      console.log("Updating task: ", task);
+      const result = this.storageService.set(task.id, task);
+      if (result.success) {
+        return success(task);
+      }
+    }
+    return result;
   }
 
   deleteTaskById(id: string): Result<void> {

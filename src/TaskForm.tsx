@@ -11,7 +11,7 @@ export function TaskForm({ handleAddTask }: TaskFormProps) {
   const [name, setName] = useState<string>("");
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    handleAddTask({ name });
+    handleAddTask({ name, completed: false, note: "", id: "", steps: [] });
     setName("");
   }
 

@@ -4,37 +4,41 @@ import { Milkdown, MilkdownProvider, useEditor } from "@milkdown/react";
 import "@milkdown/crepe/theme/nord.css";
 import "@milkdown/crepe/theme/common/style.css";
 import "./custom-milkdown.css";
-import Timeline from "./timeline";
+import Timeline from "./Timeline";
 import { Input } from "./components/ui/input";
-import { Step, Task } from "./store/localStorageService";
+import type { Result, Step, Task } from "./store/localStorageService";
 type TaskEditorProps = {
   task: Task;
+  handleUpdateTask: (task: Task) => Result<Task>;
 };
 
-export default function TaskEditor({ task }: TaskEditorProps) {
-  const [name, setName] = useState<string>(task.name);
+export default function TaskEditor({
+  task,
+  handleUpdateTask,
+}: TaskEditorProps) {
+  const [name, setName] = useState(task.name);
+  const [steps, setSteps] = useState(task.steps);
+  const [stepDescription, setStepDescription] = useState("");
 
   useEffect(() => {
     setName(task.name);
+    setSteps(task.steps);
   }, [task]);
 
-  const [steps, setSteps] = useState<Step[]>([
-    { created: new Date().toLocaleTimeString(), description: "First step" },
-    { created: new Date().toLocaleTimeString(), description: "Second step" },
-    { created: new Date().toLocaleTimeString(), description: "Third step" },
-  ]);
+  const handleAddTaskStep = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const description = stepDescription.trim();
+    if (!description) return;
 
-  const [step, setStep] = useState("");
+    const newStep: Step = {
+      description,
+      created: new Date().toISOString(),
+    };
 
-  const handleAddTaskStep = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (step.trim()) {
-      setSteps([
-        ...steps,
-        { created: new Date().toLocaleTimeString(), description: step },
-      ]);
-      setStep("");
-    }
+    const updatedSteps = [...steps, newStep];
+    setSteps(updatedSteps);
+    handleUpdateTask({ ...task, steps: updatedSteps });
+    setStepDescription("");
   };
 
   return (
@@ -44,29 +48,31 @@ export default function TaskEditor({ task }: TaskEditorProps) {
         type="text"
         required
         autoComplete="off"
-        onChange={(e) => setName(e.target.value)}
         value={name}
+        onChange={(e) => setName(e.target.value)}
       />
+
       <MilkdownProvider>
         <CrepeEditor />
       </MilkdownProvider>
+
       <form onSubmit={handleAddTaskStep}>
         <Input
-          className="focus-visible:ring-[0px]"
+          className="focus-visible:ring-0"
           id="step"
           type="text"
+          required
           autoComplete="off"
           placeholder="Enter new step"
-          required
-          onChange={(e) => setStep(e.target.value)}
-          value={step}
+          value={stepDescription}
+          onChange={(e) => setStepDescription(e.target.value)}
         />
       </form>
+
       <Timeline items={steps} />
     </div>
   );
 }
-
 const CrepeEditor: React.FC = () => {
   const { get } = useEditor((root) => {
     const crepe = new Crepe({
